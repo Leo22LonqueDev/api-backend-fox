@@ -23,7 +23,7 @@
         Clone este repositório:
     </p>
         <p>
-        git clone https://github.com/Rodrigonesko/api-backend-lpl.git
+        git clone https://github.com/Leo22LonqueDev/api-backend-fox.git
     </p>
     <p>
         Acesse o diretório do projeto:
