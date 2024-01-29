@@ -6,7 +6,7 @@ const mongodb = process.env.MONGODB_URL
 
 //Mongo
 const mongoose = require('mongoose')
-mongoose.connect(mongodb)
+mongoose.connect(mongodb + '/AutoEscolaFox')
 
 const db = mongoose.connection
 
