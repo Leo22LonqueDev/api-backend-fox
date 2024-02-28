@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 module.exports = {
     index: (req, res) => {
         res.send({
-            title: 'Api LPL',
+            title: 'Api FOX',
             version: '0.0.1'
         })
     },
