@@ -11,7 +11,9 @@ const mongodb = process.env.MONGODB_URL
 
 //Mongo
 const mongoose = require('mongoose')
-mongoose.connect(mongodb + '/AutoEscolaFox')
+mongoose.connect(mongodb + '/AutoEscolaFox', {
+    writeConcern: { w: 'majority' },
+})
 
 const db = mongoose.connection
 
