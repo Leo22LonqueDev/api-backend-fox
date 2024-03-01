@@ -1,6 +1,11 @@
 require('dotenv').config()
 const express = require('express')
 const app = express()
+const cors = require('cors')
+const corsOptions = {
+    origin: true,
+    credentials: true
+}
 
 const mongodb = process.env.MONGODB_URL
 
@@ -17,6 +22,7 @@ db.once('open', async () => {
 const routes = require('./src/config/routes')
 
 app.use(express.json({ limit: '100mb' }))
+app.use(cors(corsOptions))
 
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');

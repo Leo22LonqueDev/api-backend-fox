@@ -4,6 +4,7 @@ const userScheema = new mongoose.Schema({
     nome: String,
     email: String,
     password: String,
+    setor: String,
     accessLevel: String,
     firstAccess: String,
     atividadePrincipal: String,
