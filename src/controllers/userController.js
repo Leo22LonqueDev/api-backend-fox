@@ -5,7 +5,7 @@ module.exports = {
     create: async (req, res) => {
         try {
 
-            const { email, nome, setor, dataAdmissao } = req.body
+            const { email, nome, setor, dataAdmissao, telefone } = req.body
 
 
             let emailAutomatico = '';
@@ -45,6 +45,7 @@ module.exports = {
                 firstAccess: 'Sim',
                 setor,
                 dataAdmissao,
+                telefone,
             })
             console.log(newUser);
 
