@@ -12,6 +12,7 @@ const userScheema = new mongoose.Schema({
     nomeCompleto: String,
     dataAniversario: String,
     profilePic: String,
+    telefone: String,
     
 },
     {
