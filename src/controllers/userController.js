@@ -72,4 +72,27 @@ module.exports = {
             })
         }
     },
+
+    updateUser: async (req, res) => {
+        try {
+            const {nome, email, dataAdmissao, setor, cpf, telefone } = req.body
+
+            await User.updateOne({_id: req.body.id}, {
+                nome, 
+                email, 
+                dataAdmissao, 
+                setor, 
+                cpf, 
+                telefone
+            })
+            return res.status(200).json({
+                msg: 'ok'
+            })
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({
+                error: "Internal server error."
+            })
+        }
+    }
 }
