@@ -12,6 +12,7 @@ const veiculosRoutes = require('./routes/veiculos')
 router.get('/', publicController.index)
 router.post('/users', userController.create)
 router.get('/users', userController.index)
+router.put('/', userController.updateUser)
 
 //Rotas das celulas
 
