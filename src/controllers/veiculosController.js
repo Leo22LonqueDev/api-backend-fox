@@ -6,8 +6,6 @@ module.exports = {
         try {
             const { modelo, placa, anoDeFabricacao, cor, marca } = req.body
 
-            console.log(req.body);
-
             const newVeiculo = await Veiculos.create({
                 modelo,
                 placa,
@@ -15,7 +13,6 @@ module.exports = {
                 cor,
                 marca,
             })
-            console.log(newVeiculo);
 
             return res.status(201).json(newVeiculo)
         } catch (error) {
@@ -46,7 +43,6 @@ module.exports = {
             await Veiculos.updateOne({ _id: req.body.id }, { modelo, placa, anoDeFabricacao, cor, marca })
 
             return res.status(200).json({ msg: "OK" })
-
         } catch (error) {
             return res.status(500).json({
                 msg: 'Internal Server Error',
@@ -55,15 +51,16 @@ module.exports = {
 
         }
     },
+
     filterVeiculos: async (req, res) => {
         try {
-            const { modelo } = req.body
+            const { modelo } = req.query
+
             const filter = await Veiculos.find({
-                modelo: { $regex: new RegExp(modelo, "i") }
+                modelo: { $regex: new RegExp(modelo, 'i') }
             })
             console.log(filter)
-            return res.status(200).json({filter})
-
+            return res.status(200).json({ filter })
         } catch (error) {
             return res.status(500).json({
                 msg: 'Internal Server Error',
