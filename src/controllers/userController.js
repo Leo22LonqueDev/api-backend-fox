@@ -75,14 +75,14 @@ module.exports = {
 
     updateUser: async (req, res) => {
         try {
-            const {nome, email, dataAdmissao, setor, cpf, telefone } = req.body
+            const { nome, email, dataAdmissao, setor, cpf, telefone } = req.body
 
-            await User.updateOne({_id: req.body.id}, {
-                nome, 
-                email, 
-                dataAdmissao, 
-                setor, 
-                cpf, 
+            await User.updateOne({ _id: req.body.id }, {
+                nome,
+                email,
+                dataAdmissao,
+                setor,
+                cpf,
                 telefone
             })
             return res.status(200).json({
@@ -93,6 +93,23 @@ module.exports = {
             return res.status(500).json({
                 error: "Internal server error."
             })
+        }
+    },
+
+    filterUsers: async (req, res) => {
+        try {
+            const { nome } = req.query
+
+            const filter = await User.find({
+                nome: { $regex: new RegExp(nome, 'i') }
+            })
+            // console.log(filter)
+            return res.status(200).json({ filter })
+        } catch (error) {
+            return res.status(500).json({
+                msg: 'Internal Server Error',
+                error: error.message
+            });
         }
     }
 }
