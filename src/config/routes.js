@@ -6,6 +6,7 @@ const router = express.Router()
 //Arquivo de rotas
 
 const veiculosRoutes = require('./routes/veiculos')
+const financeiroRoutes = require('./routes/financeiro')
 
 //Public routes
 
@@ -18,5 +19,6 @@ router.get('/filter', userController.filterUsers)
 //Rotas das celulas
 
 router.use('/veiculos', veiculosRoutes)
+router.use('/financeiro', financeiroRoutes)
 
 module.exports = router
