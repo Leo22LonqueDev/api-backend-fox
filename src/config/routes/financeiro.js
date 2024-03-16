@@ -4,5 +4,6 @@ const router = express.Router()
 
 router.post('/createFinanceiro', financeiroController.createFinanceiro)
 router.get('/getFinanceiro', financeiroController.getFinanceiro)
+router.get('/filterFinanceiro', financeiroController.filterFinanceiro)
 
 module.exports = router

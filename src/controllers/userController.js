@@ -77,6 +77,8 @@ module.exports = {
         try {
             const { nome, email, dataAdmissao, setor, cpf, telefone } = req.body
 
+            console.log(req.body);
+
             await User.updateOne({ _id: req.body.id }, {
                 nome,
                 email,
