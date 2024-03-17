@@ -13,6 +13,8 @@ const userScheema = new mongoose.Schema({
     dataAniversario: String,
     profilePic: String,
     telefone: String,
+    cpf: String,
+    ativo: Boolean,
     
 },
     {
