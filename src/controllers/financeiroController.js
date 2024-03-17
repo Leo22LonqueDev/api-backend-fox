@@ -1,3 +1,4 @@
+const moment = require("moment");
 const Financeiro = require("../models/Financeiro/Financeiro");
 
 module.exports = {
@@ -44,19 +45,52 @@ module.exports = {
 
     filterFinanceiro: async (req, res) => {
         try {
-            const { nomeProduto, quantidade, tipoPagamento, dataPagamento } = req.query
+            const { nomeProduto } = req.query
 
             console.log(req.query);
 
             const filter = await Financeiro.find({
                 nomeProduto: { $regex: new RegExp(nomeProduto, 'i') },
-                // quantidade: { $regex: new RegExp(quantidade, 'i') },
-                // tipoPagamento: { $regex: new RegExp(tipoPagamento, 'i') },
-                // dataPagamento: { $regex: dataPagamento },
             })
             console.log(filter);
 
             return res.status(200).json(filter)
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({
+                msg: 'Internal Server Error'
+            })
+        }
+    },
+
+    getValorTotalMesFinanceiro: async (req, res) => {
+        try {
+            const { mes } = req.params
+
+            console.log(req.params);
+
+            const startDate = moment(mes, 'YYYY-MM').startOf('month').toDate()
+            const endDate = moment(mes, 'YYYY-MM').add(1, 'month').startOf('month').toDate();
+
+            const financeiros = await Financeiro.find({
+                createdAt: {
+                    $gte: startDate,
+                    $lte: endDate
+                }
+            });
+
+            console.log(financeiros);
+
+            let totalGasto = 0;
+            for (const financeiro of financeiros) {
+                totalGasto += parseFloat(financeiro.total)
+            }
+
+            console.log(totalGasto);
+
+            return res.status(200).json({
+                total: totalGasto
+            })
         } catch (error) {
             console.log(error);
             return res.status(500).json({
