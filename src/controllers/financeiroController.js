@@ -79,7 +79,7 @@ module.exports = {
                 }
             });
 
-            console.log(financeiros);
+            // console.log(financeiros);
 
             let totalGasto = 0;
             for (const financeiro of financeiros) {
