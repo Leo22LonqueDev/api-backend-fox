@@ -7,6 +7,7 @@ const router = express.Router()
 
 const veiculosRoutes = require('./routes/veiculos')
 const financeiroRoutes = require('./routes/financeiro')
+const horaAulaRoutes = require('./routes/horaAula')
 
 //Public routes
 
@@ -20,5 +21,6 @@ router.get('/filter', userController.filterUsers)
 
 router.use('/veiculos', veiculosRoutes)
 router.use('/financeiro', financeiroRoutes)
+router.use('/horaAula', horaAulaRoutes)
 
 module.exports = router
