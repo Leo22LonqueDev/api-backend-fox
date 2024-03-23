@@ -71,5 +71,27 @@ module.exports = {
                 msg: 'Internal Server Error'
             })
         }
+    },
+
+    updateQuantidadeAula: async (req, res) => {
+        try {
+            const { _id, quantidadeHoraAula } = req.body
+
+            console.log(req.body);
+
+            const update = await HorasAula.updateOne({
+                _id: _id
+            }, {
+                $set: { 'quantidadeAulas': quantidadeHoraAula }
+            })
+            console.log(update);
+
+            return res.status(200).json(update)
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({
+                msg: 'Internal Server Error'
+            })
+        }
     }
 }
