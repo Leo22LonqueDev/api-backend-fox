@@ -6,18 +6,21 @@ module.exports = {
     createHoraAula: async (req, res) => {
         try {
 
-            const { modeloVeiculo, placa, instrutor, data, mes, valorHoraAula, valorHoraAulaExtra } = req.body
+            const { modeloVeiculo, placa, instrutor, data, valorHoraAula, valorHoraAulaExtra } = req.body
             console.log(req.body);
+            
+            const mesOrganizado = moment(data).format('YYYY-MM')
 
-            const create = HorasAula.create({
+            const create = await HorasAula.create({
                 tipo: modeloVeiculo,
                 veiculo: placa,
                 instrutor: instrutor,
                 data: data,
-                mes: mes,
+                mes: mesOrganizado,
                 valorHoraAula,
                 valorHoraAulaExtra
             })
+            console.log(create);
 
             return res.status(201).json(create)
         } catch (error) {
@@ -50,8 +53,6 @@ module.exports = {
             const filter = await HorasAula.find({
                 $or: [
                     {
-                        tipo: { $regex: pesquisa }
-                    }, {
                         veiculo: { $regex: pesquisa }
                     }, {
                         instrutor: { $regex: pesquisa }
@@ -83,6 +84,28 @@ module.exports = {
                 _id: _id
             }, {
                 $set: { 'quantidadeAulas': quantidadeHoraAula }
+            })
+            console.log(update);
+
+            return res.status(200).json(update)
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({
+                msg: 'Internal Server Error'
+            })
+        }
+    },
+
+    updateQuantidadeAulaExtra: async (req, res) => {
+        try {
+            const { _id, quantidadeHoraAulaExtra } = req.body
+
+            console.log(req.body);
+
+            const update = await HorasAula.updateOne({
+                _id: _id
+            }, {
+                $set: { 'quantidadeAulasExtra': quantidadeHoraAulaExtra }
             })
             console.log(update);
 
