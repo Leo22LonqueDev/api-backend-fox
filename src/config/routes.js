@@ -16,6 +16,7 @@ router.post('/users', userController.create)
 router.get('/users', userController.index)
 router.put('/', userController.updateUser)
 router.get('/filter', userController.filterUsers)
+router.post('/login', publicController.login)
 
 //Rotas das celulas
 
