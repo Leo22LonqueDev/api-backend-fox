@@ -8,6 +8,7 @@ const router = express.Router()
 const veiculosRoutes = require('./routes/veiculos')
 const financeiroRoutes = require('./routes/financeiro')
 const horaAulaRoutes = require('./routes/horaAula')
+const verifyAcesso = require('../middlewares/verifyAcesso')
 
 //Public routes
 
@@ -17,6 +18,7 @@ router.get('/users', userController.index)
 router.put('/', userController.updateUser)
 router.get('/filter', userController.filterUsers)
 router.post('/login', publicController.login)
+router.get('/verifyAcesso', verifyAcesso.verify)
 
 //Rotas das celulas
 
