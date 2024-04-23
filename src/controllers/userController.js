@@ -1,4 +1,5 @@
 const User = require("../models/User/User");
+const bcrypt = require('bcrypt')
 
 module.exports = {
 
@@ -27,21 +28,15 @@ module.exports = {
                 return res.status(422).json({ msg: 'Email ja cadastrado' })
             }
 
-            // const saltRounds = 10; // Aumente o número de rodadas de hashing
-            // const plainPassword = '123';
+            const saltRounds = 10; // Aumente o número de rodadas de hashing
+            const plainPassword = '123';
 
-            // let encryptedPassword = '';
-
-            // bcrypt.genSalt(saltRounds, function (err, salt) {
-            //     bcrypt.hash(plainPassword, salt, function (err, hash) {
-            //         encryptedPassword = hash;
-            //     });
-            // });
+            let encryptedPassword = await bcrypt.hash(plainPassword, saltRounds);
 
             const newUser = await User.create({
                 email: email || emailAutomatico,
                 nome,
-                // password: encryptedPassword,
+                password: encryptedPassword,
                 firstAccess: 'Sim',
                 setor,
                 dataAdmissao,
