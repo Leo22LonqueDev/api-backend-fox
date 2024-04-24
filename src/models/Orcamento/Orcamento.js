@@ -8,7 +8,6 @@ const orcamentoScheema = new mongoose.Schema({
     dia: String,
     situacaoFinal: String,
     
-
 },
     {
         versionKey: false,
