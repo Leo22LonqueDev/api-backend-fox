@@ -9,6 +9,7 @@ const veiculosRoutes = require('./routes/veiculos')
 const financeiroRoutes = require('./routes/financeiro')
 const horaAulaRoutes = require('./routes/horaAula')
 const verifyAcesso = require('../middlewares/verifyAcesso')
+const orcamentoRoutes = require('./routes/orcamento')
 
 //Public routes
 
@@ -25,5 +26,6 @@ router.get('/verifyAcesso', verifyAcesso.verify)
 router.use('/veiculos', veiculosRoutes)
 router.use('/financeiro', financeiroRoutes)
 router.use('/horaAula', horaAulaRoutes)
+router.use('/orcamento', orcamentoRoutes)
 
 module.exports = router
