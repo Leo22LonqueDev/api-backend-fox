@@ -21,6 +21,8 @@ router.get('/filter', userController.filterUsers)
 router.post('/login', publicController.login)
 router.post('/logout', publicController.logout)
 router.get('/verifyAcesso', verifyAcesso.verify)
+router.put('/users/updatePassword', userController.firstAccess)
+router.get('/infoUser', userController.infoUser)
 
 //Rotas das celulas
 

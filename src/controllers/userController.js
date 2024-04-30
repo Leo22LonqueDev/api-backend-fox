@@ -57,9 +57,7 @@ module.exports = {
         try {
             const users = await User.find()
 
-            return res.status(200).json({
-                users
-            })
+            return res.json(users)
         } catch (error) {
             console.error(error);
             return res.status(500).json({
@@ -108,5 +106,56 @@ module.exports = {
                 error: error.message
             });
         }
-    }
+    },
+
+    firstAccess: async (req, res) => {
+        try {
+
+            const { password, confirmPassword } = req.body
+
+            if (password !== confirmPassword) {
+                return res.status(401).json({ message: `As senhas não conferem` })
+            }
+
+            const saltRounds = 10
+
+            const encryptedPassword = await bcrypt.hash(password, saltRounds)
+
+            const updatePass = await User.findOneAndUpdate({
+                email: req.email
+            }, {
+                password: encryptedPassword,
+                firstAccess: 'Não'
+            })
+
+            return res.status(200).json({
+                message: 'A senha foi atualizada com sucesso!',
+                updatePass
+            })
+
+
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({
+                error: "Internal server error."
+            })
+        }
+    },
+
+    infoUser: async (req, res) => {
+        try {
+
+            const user = await User.findOne({ email: req.email })
+
+            return res.status(200).json({
+                user
+            })
+
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({
+                error: "Internal server error."
+            })
+        }
+    },
 }
