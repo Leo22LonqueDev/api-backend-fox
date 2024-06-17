@@ -8,7 +8,7 @@ module.exports = {
 
             const { modeloVeiculo, placa, instrutor, data, valorHoraAula, valorHoraAulaExtra } = req.body
             console.log(req.body);
-            
+
             const mesOrganizado = moment(data).format('YYYY-MM')
 
             const create = await HorasAula.create({
@@ -31,9 +31,25 @@ module.exports = {
         }
     },
 
-    getHoraAula: async (req, res) => {
+    filterHoraAula: async (req, res) => {
         try {
-            const find = await HorasAula.find()
+            const { instrutor, modeloVeiculo, mes } = req.query
+            console.log(req.query);
+
+            if (!instrutor && !modeloVeiculo && !mes) {
+                const find = await HorasAula.find()
+
+                return res.status(200).json(find)
+            }
+
+            const find = await HorasAula.find({
+                $or: [
+                    { veiculo: { $regex: new RegExp(modeloVeiculo, 'i') } },
+                    { instrutor: { $regex: new RegExp(instrutor, 'i') } },
+                    { mes: mes },
+                ]
+            });
+            console.log(find);
 
             return res.status(200).json(find)
         } catch (error) {
@@ -44,48 +60,18 @@ module.exports = {
         }
     },
 
-    filterHoraAula: async (req, res) => {
-        try {
-            const { pesquisa } = req.params
-
-            console.log(pesquisa);
-
-            const filter = await HorasAula.find({
-                $or: [
-                    {
-                        veiculo: { $regex: pesquisa }
-                    }, {
-                        instrutor: { $regex: pesquisa }
-                    }, {
-                        data: { $regex: pesquisa }
-                    }, {
-                        mes: { $regex: pesquisa }
-                    },
-                ]
-            })
-            console.log(filter);
-
-            return res.status(200).json(filter)
-        } catch (error) {
-            console.log(error);
-            return res.status(500).json({
-                msg: 'Internal Server Error'
-            })
-        }
-    },
-
     updateQuantidadeAula: async (req, res) => {
         try {
-            const { _id, quantidadeHoraAula } = req.body
+            const { _id, quantidadeHoraAula } = req.query
 
-            console.log(req.body);
+            console.log(req.query);
 
             const update = await HorasAula.updateOne({
                 _id: _id
             }, {
                 $set: { 'quantidadeAulas': quantidadeHoraAula }
             })
-            console.log(update);
+            // console.log(update);
 
             return res.status(200).json(update)
         } catch (error) {
@@ -98,9 +84,9 @@ module.exports = {
 
     updateQuantidadeAulaExtra: async (req, res) => {
         try {
-            const { _id, quantidadeHoraAulaExtra } = req.body
+            const { _id, quantidadeHoraAulaExtra } = req.query
 
-            console.log(req.body);
+            console.log(req.query);
 
             const update = await HorasAula.updateOne({
                 _id: _id
