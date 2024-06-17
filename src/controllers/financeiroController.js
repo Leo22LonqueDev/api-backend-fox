@@ -52,7 +52,6 @@ module.exports = {
             const filter = await Financeiro.find({
                 nomeProduto: { $regex: new RegExp(nomeProduto, 'i') },
             })
-            console.log(filter);
 
             return res.status(200).json(filter)
         } catch (error) {
